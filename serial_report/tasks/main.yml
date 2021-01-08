@@ -8,6 +8,7 @@
   when: ping_result.rc == 0
 
 - debug: var=hostvars
+  run_once: true
 
 # - debug: var=ansible_net_stacked_serialnums
 #  when: ansible_net_stacked_serialnums is defined
