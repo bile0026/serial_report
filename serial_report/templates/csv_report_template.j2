@@ -5,8 +5,10 @@ host, serial_number
 {% for serial_number in hostvars[host]['ansible_net_stacked_serialnums'] %}
 {{ host }},{{ serial_number }}
 {% endfor %}
-{% else %}
+{% if hostvars[host]['ansible_net_serialnum'] is defined %}
 {{ host }},{{ hostvars[host]['ansible_net_serialnum'] }}
+{% else %}
+{{ host }}, Problem reading serial number
 {% endif %}
 {% else %}
 {{ host }},Host Offline
