@@ -1,0 +1,8 @@
+host, serial_number
+{% for host in play_hosts %}
+{% if ping_result.rc == 0 %}
+{{ host }},{{ ansible_net_serialnum }}
+{% else %}
+{{ host }}, Host Offline
+{% endif %}
+{% endfor %}

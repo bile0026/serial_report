@@ -7,10 +7,20 @@
   register: ios_facts
   when: ping_result.rc == 0
 
-- name: Generate report file
+- name: Generate txt report file
   template:
-    src: templates/report_template.j2
+    src: templates/txt_report_template.j2
     dest: /tmp/Cisco_Serial_Report.txt
+  when: report_type == txt
+  delegate_to: localhost
+  run_once: True
+  check_mode: False
+
+- name: Generate csv report file
+  template:
+    src: templates/csv_report_template.j2
+    dest: /tmp/Cisco_Serial_Report.txt
+  when: report_type == csv
   delegate_to: localhost
   run_once: True
   check_mode: False
