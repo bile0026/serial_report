@@ -13,27 +13,29 @@
     dest: /tmp/Cisco_Serial_Report.txt
     block: |
       "
+      {% for host in play_hosts %}
       {% if ping_result.rc == 0 %}
       {% if ios_facts.ansible_net_stacked_serialnums is defined %}
       {% for serial_number in ios_facts.ansible_net_stacked_serialnums %}
-      {{ ansible_host }}:
+      {{ host }}:
       Serial Number: {{ serial_number }}
       {% endfor %}
 
       --------------------------------------------------------------------
       {% else %}
-      {{ ansible_host }}:
+      {{ host }}:
       Serial Number: {{ ios_facts.ansible_net_serialnum }}
 
       --------------------------------------------------------------------
       {% endif %}
       {% else %}
-      {{ ansible_host }}:
+      {{ host }}:
       Serial Number: Host Offline
 
       --------------------------------------------------------------------
 
       {% endif %}
+      {% endfor %}
       "
   when: report_format == 'txt'
   delegate_to: localhost
