@@ -8,9 +8,35 @@
   when: ping_result.rc == 0
 
 - name: Generate txt report file
-  template:
-    src: templates/txt_report_template.j2
+  blockinfile:
     dest: /tmp/Cisco_Serial_Report.txt
+    block: |
+      "
+      {% if ping_result.rc == 0 %}
+      {% if ansible_net_stacked_serialnums | length > 0 %}
+      {% for serial_number in ansible_net_stacked_serialnums %}
+      {{ host }}:
+      Serial Number: {{ serial_number }}
+      {% endfor %}
+
+      --------------------------------------------------------------------
+      {% endif %}
+      {% if ansible_net_stacked_serialnums is not defined %}
+      {% for serial_number in ansible_net_serialnum %}
+      {{ host }}:
+      Serial Number: {{ serial_number }}
+      {% endfor %}
+
+      --------------------------------------------------------------------
+      {% endif %}
+      {% else %}
+      {{ host }}:
+      Serial Number: Host Offline
+
+      --------------------------------------------------------------------
+
+      {% endif %}
+      "
   when: report_format == 'txt'
   delegate_to: localhost
   run_once: True
