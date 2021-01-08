@@ -1,0 +1,28 @@
+---
+# tasks file for serial_report
+
+- name: Gather device information
+    ios_facts:
+      gather_subset: min
+    register: ios_facts
+
+  - name: Generate report file
+    template:
+      src: templates/report_template.j2
+      dest: /tmp/Cisco_Serial_Report.txt
+    delegate_to: localhost
+    run_once: True
+    check_mode: False
+
+  - name: Email non-compliance
+  mail:
+      from: "{{ from_email }}"
+      to: "{{ email_address }}"
+      subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
+      subtype: html
+      attach: /tmp/Cisco_Compliance_Report.txt
+      host: "{{ smtp_server }}"
+      body:
+  delegate_to: localhost
+  run_once: True
+  check_mode: False
