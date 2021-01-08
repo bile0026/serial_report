@@ -1,9 +1,15 @@
 {% for host in play_hosts %}
 {% if ping_result.rc == 0 %}
+{% if ansible_net_stacked_serialnums.length == 1 %}
 {{ host }}:
-Serial Number: {{ ansible_net_serialnum }}
+Serial Number: {{ ansible_net_stacked_serialnums }}
+{% else %}
+{% for serial_number in ansible_net_stacked_serialnums %}
+{{ host }}:
+Serial Number: {{ serial_number }}
 
 --------------------------------------------------------------------
+{% endif %}
 {% else %}
 {{ host }}:
 Serial Number: Host Offline
