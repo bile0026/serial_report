@@ -18,7 +18,7 @@
   mail:
     from: "{{ from_email }}"
     to: "{{ email_address }}"
-    subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
+    subject: Serial Number Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
     subtype: html
     attach: /tmp/Cisco_Serial_Report.txt
     host: "{{ smtp_server }}"
