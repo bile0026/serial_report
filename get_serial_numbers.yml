@@ -30,4 +30,5 @@
 
   tasks:
     - name: Import serial_report role
-      import_role: serial_report
+      import_role:
+        name: serial_report
