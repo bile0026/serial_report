@@ -7,11 +7,14 @@ Serial Number: {{ serial_number }}
 {% endfor %}
 
 --------------------------------------------------------------------
-{% else %}
+{% elif hostvars[host]['ansible_net_serialnum'] is defined %}
 {{ host }}:
 Serial Number: {{ hostvars[host]['ansible_net_serialnum'] }}
 
 --------------------------------------------------------------------
+{% else %}
+{{ host }}:
+Serial Number: Problem reading serial number
 {% endif %}
 {% else %}
 {{ host }}:
