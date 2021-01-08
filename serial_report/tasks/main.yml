@@ -3,7 +3,7 @@
 
 - name: Gather device information
   ios_facts:
-    gather_subset: !config
+    gather_subset: min
   register: ios_facts
 
 - name: Generate report file
