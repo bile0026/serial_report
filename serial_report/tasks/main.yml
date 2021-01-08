@@ -15,7 +15,7 @@
       {% if ping_result.rc == 0 %}
       {% if ansible_net_stacked_serialnums | length > 0 %}
       {% for serial_number in ansible_net_stacked_serialnums %}
-      {{ host }}:
+      {{ ansible_host }}:
       Serial Number: {{ serial_number }}
       {% endfor %}
 
@@ -23,14 +23,14 @@
       {% endif %}
       {% if ansible_net_stacked_serialnums is not defined %}
       {% for serial_number in ansible_net_serialnum %}
-      {{ host }}:
+      {{ ansible_host }}:
       Serial Number: {{ serial_number }}
       {% endfor %}
 
       --------------------------------------------------------------------
       {% endif %}
       {% else %}
-      {{ host }}:
+      {{ ansible_host }}:
       Serial Number: Host Offline
 
       --------------------------------------------------------------------
