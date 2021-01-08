@@ -6,8 +6,8 @@ Code version: {{ ansible_net_serialnum }}
 --------------------------------------------------------------------
 
 {% endfor %}
-{% endif %}
-{% elseif %}
+{% else %}
+
 {% for host in play_hosts %}
 {{ host }} report:
 Code version: Host Offline
