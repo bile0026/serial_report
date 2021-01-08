@@ -34,7 +34,7 @@
 
 - name: Cleanup reports
   file:
-    path: /tmp/Cisco_Serial_Report.txt
+    path: /tmp/Cisco_Serial_Report.{{ report_format }}
     state: absent
   delegate_to: localhost
   run_once: true
