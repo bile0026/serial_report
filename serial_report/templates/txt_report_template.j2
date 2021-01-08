@@ -14,7 +14,7 @@ Serial Number: {{ hostvars[host]['ansible_net_serialnum'] }}
 --------------------------------------------------------------------
 {% else %}
 {{ host }}:
-Serial Number: Problem reading serial number
+Serial Number: Problem reading serial number (possible host offline)
 
 --------------------------------------------------------------------
 {% endif %}

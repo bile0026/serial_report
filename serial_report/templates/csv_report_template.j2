@@ -8,7 +8,7 @@ host, serial_number
 {% elif hostvars[host]['ansible_net_serialnum'] is defined %}
 {{ host }},{{ hostvars[host]['ansible_net_serialnum'] }}
 {% else %}
-{{ host }}, Problem reading serial number
+{{ host }}, Problem reading serial number (possible host offline)
 {% endif %}
 {% else %}
 {{ host }},Host Offline
