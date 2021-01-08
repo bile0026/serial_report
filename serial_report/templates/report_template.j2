@@ -5,8 +5,6 @@ Serial Number: {{ ansible_net_serialnum }}
 
 --------------------------------------------------------------------
 {% else %}
-
-{% for host in play_hosts %}
 {{ host }}:
 Serial Number: Host Offline
 
