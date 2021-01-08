@@ -27,7 +27,6 @@
 
       --------------------------------------------------------------------
       {% endif %}
-      {% endif %}
       {% else %}
       {{ ansible_host }}:
       Serial Number: Host Offline
@@ -38,7 +37,7 @@
       "
   when: report_format == 'txt'
   delegate_to: localhost
-  delegate_facts: true
+  delegate_facts: false
   check_mode: False
 
 - name: Generate csv report file
