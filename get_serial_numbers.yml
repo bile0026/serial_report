@@ -20,3 +20,71 @@
     - name: Import serial_report role
       import_role:
         name: serial_report
+
+- name: Generate and email Report
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Generate txt report file
+      blockinfile:
+        create: true
+        dest: /tmp/Cisco_Serial_Report.txt
+        block: |
+          "
+          {% if ping_result.rc == 0 %}
+          {% if ansible_net_stacked_serialnums is defined %}
+          {% for serial_number in ansible_net_stacked_serialnums %}
+          {{ ansible_host }}:
+          Serial Number: {{ serial_number }}
+          {% endfor %}
+
+          --------------------------------------------------------------------
+          {% else %}
+          {{ ansible_host }}:
+          Serial Number: {{ ansible_net_serialnum }}
+
+          --------------------------------------------------------------------
+          {% endif %}
+          {% else %}
+          {{ ansible_host }}:
+          Serial Number: Host Offline
+
+          --------------------------------------------------------------------
+
+          {% endif %}
+          "
+      when: report_format == 'txt'
+      # delegate_to: localhost
+      # delegate_facts: true
+      check_mode: False
+
+    - name: Generate csv report file
+      template:
+        src: templates/csv_report_template.j2
+        dest: /tmp/Cisco_Serial_Report.txt
+      when: report_format == 'csv'
+      # delegate_to: localhost
+      run_once: true
+      check_mode: False
+
+    - name: Email Serial Number Report
+      mail:
+        from: "{{ from_email }}"
+        to: "{{ email_address }}"
+        subject: Serial Number Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
+        subtype: html
+        attach: /tmp/Cisco_Serial_Report.txt
+        host: "{{ smtp_server }}"
+        body:
+      # delegate_to: localhost
+      run_once: true
+      check_mode: False
+
+    - name: Cleanup reports
+      file:
+        path: /tmp/Cisco_Serial_Report.txt
+        state: absent
+      # delegate_to: localhost
+      run_once: true
+      check_mode: False
