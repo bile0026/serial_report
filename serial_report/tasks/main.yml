@@ -36,7 +36,8 @@
       {% endif %}
       "
   when: report_format == 'txt'
-  # delegate_to: localhost
+  delegate_to: localhost
+  delegate_facts: true
   check_mode: False
 
 - name: Generate csv report file
