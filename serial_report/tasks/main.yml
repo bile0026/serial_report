@@ -36,8 +36,7 @@
       {% endif %}
       "
   when: report_format == 'txt'
-  delegate_to: localhost
-  delegate_facts: false
+  local_action: true
   check_mode: False
 
 - name: Generate csv report file
@@ -46,7 +45,7 @@
     dest: /tmp/Cisco_Serial_Report.txt
   when: report_format == 'csv'
   delegate_to: localhost
-  run_once: True
+  run_once: true
   check_mode: False
 
 - name: Email Serial Number Report
