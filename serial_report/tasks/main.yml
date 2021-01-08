@@ -25,7 +25,7 @@
     to: "{{ email_address }}"
     subject: Serial Number Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
     subtype: html
-    attach: /tmp/Cisco_Serial_Report.txt
+    attach: /tmp/Cisco_Serial_Report.{{ report_format }}
     host: "{{ smtp_server }}"
     body:
   delegate_to: localhost
