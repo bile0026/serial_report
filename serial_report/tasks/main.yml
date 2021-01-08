@@ -7,55 +7,29 @@
   register: ios_facts
   when: ping_result.rc == 0
 
-- debug: var=ansible_net_stacked_serialnums
+# - debug: var=ansible_net_stacked_serialnums
   when: ansible_net_stacked_serialnums is defined
 
-- debug: var=ansible_net_serialnums
+# - debug: var=ansible_net_serialnums
   when: ansible_net_stacked_serialnums is not defined
 
 - name: Generate txt report file
-  blockinfile:
-    create: true
-    dest: /tmp/Cisco_Serial_Report.txt
-    block: |
-      "
-      {% for host in play_hosts %}
-      {% if ping_result.rc == 0 %}
-      {% if ios_facts.ansible_net_stacked_serialnums is defined %}
-      {% for serial_number in ios_facts.ansible_net_stacked_serialnums %}
-      {{ host }}:
-      Serial Number: {{ serial_number }}
-      {% endfor %}
-
-      --------------------------------------------------------------------
-      {% else %}
-      {{ host }}:
-      Serial Number: {{ ios_facts.ansible_net_serialnum }}
-
-      --------------------------------------------------------------------
-      {% endif %}
-      {% else %}
-      {{ host }}:
-      Serial Number: Host Offline
-
-      --------------------------------------------------------------------
-
-      {% endif %}
-      {% endfor %}
-      "
+  local_action:
+    template:
+      src: templates/txt_report_template.j2
+      dest: /tmp/Cisco_Serial_Report.txt
   when: report_format == 'txt'
-  delegate_to: localhost
-  delegate_facts: true
-  check_mode: False
+  run_once: true
+  check_mode: false
 
 - name: Generate csv report file
   template:
     src: templates/csv_report_template.j2
-    dest: /tmp/Cisco_Serial_Report.txt
+    dest: /tmp/Cisco_Serial_Report.csv
   when: report_format == 'csv'
   delegate_to: localhost
   run_once: true
-  check_mode: False
+  check_mode: false
 
 - name: Email Serial Number Report
   mail:
@@ -68,7 +42,7 @@
     body:
   delegate_to: localhost
   run_once: true
-  check_mode: False
+  check_mode: false
 
 - name: Cleanup reports
   file:
@@ -76,4 +50,4 @@
     state: absent
   delegate_to: localhost
   run_once: true
-  check_mode: False
+  check_mode: false
