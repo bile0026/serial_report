@@ -22,10 +22,8 @@
       --------------------------------------------------------------------
       {% endif %}
       {% if ansible_net_stacked_serialnums is not defined %}
-      {% for serial_number in ansible_net_serialnum %}
       {{ ansible_host }}:
-      Serial Number: {{ serial_number }}
-      {% endfor %}
+      Serial Number: {{ ansible_net_serialnum }}
 
       --------------------------------------------------------------------
       {% endif %}
