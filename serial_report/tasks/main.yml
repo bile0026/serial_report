@@ -10,10 +10,10 @@
 - debug: var=hostvars
 
 # - debug: var=ansible_net_stacked_serialnums
-  when: ansible_net_stacked_serialnums is defined
+#  when: ansible_net_stacked_serialnums is defined
 
 # - debug: var=ansible_net_serialnum
-  when: ansible_net_stacked_serialnums is not defined
+#  when: ansible_net_stacked_serialnums is not defined
 
 - name: Generate txt report file
   local_action: template src=templates/txt_report_template.j2 dest=/tmp/Cisco_Serial_Report.txt
