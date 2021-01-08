@@ -36,7 +36,8 @@
       {% endif %}
       "
   when: report_format == 'txt'
-  local_action: true
+  delegate_to: localhost
+  delegate_facts: true
   check_mode: False
 
 - name: Generate csv report file
@@ -58,7 +59,7 @@
     host: "{{ smtp_server }}"
     body:
   delegate_to: localhost
-  run_once: True
+  run_once: true
   check_mode: False
 
 - name: Cleanup reports
@@ -66,5 +67,5 @@
     path: /tmp/Cisco_Serial_Report.txt
     state: absent
   delegate_to: localhost
-  run_once: True
+  run_once: true
   check_mode: False
