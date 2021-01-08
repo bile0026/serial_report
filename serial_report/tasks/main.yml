@@ -13,17 +13,17 @@
     block: |
       "
       {% if ping_result.rc == 0 %}
+      {% if ansible_net_stacked_serialnums is not defined %}
+      {{ ansible_host }}:
+      Serial Number: {{ ansible_net_serialnum }}
+
+      --------------------------------------------------------------------
+      {% endif %}
       {% if ansible_net_stacked_serialnums | length > 0 %}
       {% for serial_number in ansible_net_stacked_serialnums %}
       {{ ansible_host }}:
       Serial Number: {{ serial_number }}
       {% endfor %}
-
-      --------------------------------------------------------------------
-      {% endif %}
-      {% if ansible_net_stacked_serialnums is not defined %}
-      {{ ansible_host }}:
-      Serial Number: {{ ansible_net_serialnum }}
 
       --------------------------------------------------------------------
       {% endif %}
