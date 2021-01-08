@@ -1,7 +1,7 @@
 {% if ping_result.rc == 0 %}
 {% for host in play_hosts %}
 {{ host }} report:
-Code version: {{ ansible_net_serialnum }}
+Serial Number: {{ ansible_net_serialnum }}
 
 --------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ Code version: {{ ansible_net_serialnum }}
 
 {% for host in play_hosts %}
 {{ host }} report:
-Code version: Host Offline
+Serial Number: Host Offline
 
 --------------------------------------------------------------------
 
