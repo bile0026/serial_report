@@ -1,8 +1,8 @@
 {% for host in play_hosts %}
 {% if ping_result.rc == 0 %}
 {% if hostvars[host]['ansible_net_stacked_serialnums'] is defined %}
-{% for serial_number in hostvars[host]['ansible_net_stacked_serialnums'] %}
 {{ host }}:
+{% for serial_number in hostvars[host]['ansible_net_stacked_serialnums'] %}
 Serial Number: {{ serial_number }}
 {% endfor %}
 
