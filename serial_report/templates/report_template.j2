@@ -1,7 +1,18 @@
+{% if ping_result == 0 %}
 {% for host in play_hosts %}
 {{ host }} report:
-Code version: {{ ios_facts.ansible_net_serialnum }}
+Code version: {{ ansible_net_serialnum }}
 
 --------------------------------------------------------------------
 
 {% endfor %}
+{% endif %}
+{% elseif %}
+{% for host in play_hosts %}
+{{ host }} report:
+Code version: Host Offline
+
+--------------------------------------------------------------------
+
+{% endfor %}
+{% endif %}
