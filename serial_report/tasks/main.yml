@@ -7,10 +7,10 @@
   register: ios_facts
   when: ping_result.rc == 0
 
-- debug: var=ios_facts.ansible_net_stacked_serialnums
+- debug: var=ansible_net_stacked_serialnums
   when: ios_facts.ansible_net_stacked_serialnums is defined
 
-- debug: var=ios_facts.ansible_net_serialnums
+- debug: var=ansible_net_serialnums
   when: ios_facts.ansible_net_stacked_serialnums is not defined
 
 - name: Generate txt report file
