@@ -1,4 +1,4 @@
-{% if ping_result == 0 %}
+{% if ping_result.rc == 0 %}
 {% for host in play_hosts %}
 {{ host }} report:
 Code version: {{ ansible_net_serialnum }}
