@@ -10,6 +10,8 @@
     - cisco.ios
 
   tasks:
+    - debug: var=hostvars
+
     - name: Ping for reachability
       command: ping -c2 {{ inventory_hostname }}
       delegate_to: localhost
