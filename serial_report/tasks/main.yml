@@ -5,6 +5,7 @@
   ios_facts:
     gather_subset: min
   register: ios_facts
+  when: ping_result == 0
 
 - name: Generate report file
   template:
