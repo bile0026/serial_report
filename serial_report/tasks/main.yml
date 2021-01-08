@@ -14,16 +14,16 @@
     block: |
       "
       {% if ping_result.rc == 0 %}
-      {% if ansible_net_stacked_serialnums is defined %}
-      {% for serial_number in ansible_net_stacked_serialnums %}
+      {% if ios_facts.ansible_net_stacked_serialnums is defined %}
+      {% for serial_number in ios_facts.ansible_net_stacked_serialnums %}
       {{ ansible_host }}:
-      Serial Number: {{ serial_number }}
+      Serial Number: {{ ios_facts.serial_number }}
       {% endfor %}
 
       --------------------------------------------------------------------
       {% else %}
       {{ ansible_host }}:
-      Serial Number: {{ ansible_net_serialnum }}
+      Serial Number: {{ ios_facts.ansible_net_serialnum }}
 
       --------------------------------------------------------------------
       {% endif %}
