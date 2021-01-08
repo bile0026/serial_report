@@ -17,7 +17,7 @@
       {% if ios_facts.ansible_net_stacked_serialnums is defined %}
       {% for serial_number in ios_facts.ansible_net_stacked_serialnums %}
       {{ ansible_host }}:
-      Serial Number: {{ ios_facts.serial_number }}
+      Serial Number: {{ serial_number }}
       {% endfor %}
 
       --------------------------------------------------------------------
