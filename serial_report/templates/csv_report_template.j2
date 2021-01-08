@@ -5,17 +5,10 @@ host, serial_number
 {% for serial_number in hostvars[host]['ansible_net_stacked_serialnums'] %}
 {{ host }},{{ serial_number }}
 {% endfor %}
-
---------------------------------------------------------------------
 {% else %}
 {{ host }},{{ hostvars[host]['ansible_net_serialnum'] }}
-
---------------------------------------------------------------------
 {% endif %}
 {% else %}
 {{ host }},Host Offline
-
---------------------------------------------------------------------
-
 {% endif %}
 {% endfor %}
