@@ -7,6 +7,7 @@ Serial Number: {{ ansible_net_stacked_serialnums }}
 {% for serial_number in ansible_net_stacked_serialnums %}
 {{ host }}:
 Serial Number: {{ serial_number }}
+{% endfor %}
 
 --------------------------------------------------------------------
 {% endif %}
