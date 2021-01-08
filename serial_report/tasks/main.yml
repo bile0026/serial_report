@@ -9,6 +9,7 @@
 
 - name: Generate txt report file
   blockinfile:
+    create: true
     dest: /tmp/Cisco_Serial_Report.txt
     block: |
       "
