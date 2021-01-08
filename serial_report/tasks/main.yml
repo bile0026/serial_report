@@ -14,11 +14,8 @@
   check_mode: false
 
 - name: Generate csv report file
-  template:
-    src: templates/csv_report_template.j2
-    dest: /tmp/Cisco_Serial_Report.csv
+  local_action: template src=templates/csv_report_template.j2 dest=/tmp/Cisco_Serial_Report.csv
   when: report_format == 'csv'
-  delegate_to: localhost
   run_once: true
   check_mode: false
 
