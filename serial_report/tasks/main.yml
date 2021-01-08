@@ -7,7 +7,7 @@
   register: ios_facts
   when: ping_result.rc == 0
 
-  - debug: var=hostvars
+- debug: var=hostvars
 
 # - debug: var=ansible_net_stacked_serialnums
   when: ansible_net_stacked_serialnums is defined
