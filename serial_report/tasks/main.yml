@@ -61,10 +61,10 @@
   run_once: True
   check_mode: False
 
-  - name: Cleanup reports
-    file:
-      path: /tmp/Cisco_Serial_Report.txt
-      state: absent
-    delegate_to: localhost
-    run_once: True
-    check_mode: False
+- name: Cleanup reports
+  file:
+    path: /tmp/Cisco_Serial_Report.txt
+    state: absent
+  delegate_to: localhost
+  run_once: True
+  check_mode: False
